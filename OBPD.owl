@@ -1,0 +1,654 @@
+@prefix : <http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD> .
+
+<http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#assignedTo
+:assignedTo rdf:type owl:ObjectProperty ;
+            owl:inverseOf :referencedFrom ;
+            rdfs:domain :MaterialAssembly ,
+                        :Program ,
+                        :Schedule ,
+                        :System ;
+            rdfs:range :Zone ,
+                       owl:Thing ;
+            rdfs:comment "The relationship in which a subject is designated to an object." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#has
+:has rdf:type owl:ObjectProperty ;
+     rdfs:comment "A relationship between two objects in which the subject can be said to be closely associated with, contain, or can be said to be comprised of another entity." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#hasAnalyticalRepresentation
+:hasAnalyticalRepresentation rdf:type owl:ObjectProperty ;
+                             rdfs:subPropertyOf :has ;
+                             rdfs:domain :Material ,
+                                         :Program ,
+                                         :System ,
+                                         :Zone ;
+                             rdfs:range :EnergyPlusBuildingProgram ,
+                                        :EnergyPlusMaterial ,
+                                        :EnergyPlusSpaceProgram ,
+                                        :EnergyPlusZone ,
+                                        :RadianceMaterial ;
+                             owl:propertyDisjointWith :hasMaterial ;
+                             rdfs:comment "Representations of specific data for the purposes of analysis or an analytical environment. For example a material may be represented, for analysis, as defined by Energy Plus or Radiance eqch requiring data to be represented in a different fashion." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#hasMaterial
+:hasMaterial rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :has ;
+             rdfs:domain :Material ;
+             rdfs:range :MaterialAssembly ;
+             rdfs:comment "A special case of the 'has' property that singifies than an object has a material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#isAdjacent
+:isAdjacent rdf:type owl:ObjectProperty ,
+                     owl:SymmetricProperty ;
+            rdfs:domain :MaterialAssembly ,
+                        :Zone ;
+            rdfs:range :MaterialAssembly ,
+                       :Zone ;
+            rdfs:comment "A topological relationship between two objects (e.g., material layers, zones) that share a common border or boundary, but do not intersect." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#referencedFrom
+:referencedFrom rdf:type owl:ObjectProperty ;
+                rdfs:comment "(Inverse of assignedTo)" .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#area
+:area rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :metric ;
+      rdf:type owl:FunctionalProperty ;
+      rdfs:domain :Zone ;
+      rdfs:range xsd:double ;
+      owl:propertyDisjointWith :volume ;
+      rdfs:comment "The numerical representation of the area of a zone." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#coolingSetpoint
+:coolingSetpoint rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :setpoint ;
+                 rdfs:domain :System ;
+                 rdfs:range xsd:double ;
+                 rdfs:comment "The temperature at which cooling begins." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#coolingSetpointImperial
+:coolingSetpointImperial rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :coolingSetpoint ;
+                         rdf:type owl:FunctionalProperty ;
+                         rdfs:domain :System ;
+                         rdfs:range xsd:double ;
+                         owl:propertyDisjointWith :coolingSetpointMetric ;
+                         rdfs:comment "The cooling setpoint in degrees fahrenheit (F)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#coolingSetpointMetric
+:coolingSetpointMetric rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :coolingSetpoint ;
+                       rdf:type owl:FunctionalProperty ;
+                       rdfs:domain :System ;
+                       rdfs:range xsd:double ;
+                       rdfs:comment "The cooling setpoint in degrees celsius (c)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#dehumidificationSetpoint
+:dehumidificationSetpoint rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :setpoint ;
+                          rdfs:domain :System ;
+                          rdfs:range xsd:double ;
+                          rdfs:comment "The relative humidity percentage at which dehumidification begins." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#description
+:description rdf:type owl:DatatypeProperty ;
+             rdfs:domain :Document ,
+                         :Material ,
+                         :MaterialAssembly ,
+                         :Program ,
+                         :Schedule ,
+                         :System ,
+                         :Zone ;
+             rdfs:range xsd:string ;
+             rdfs:comment "Data property of type string that describes an object." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialConductivity
+:energyPlusMaterialConductivity rdf:type owl:DatatypeProperty ;
+                                rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                rdfs:domain :EnergyPlusMaterial ;
+                                rdfs:range xsd:double ;
+                                rdfs:comment "The amount of energy conducted through a material in W/(m*K)" .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialDensity
+:energyPlusMaterialDensity rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                           rdfs:domain :EnergyPlusMaterial ;
+                           rdfs:range xsd:double ;
+                           rdfs:comment "The density of a material in kg/m3." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialProperty
+:energyPlusMaterialProperty rdf:type owl:DatatypeProperty ;
+                            rdfs:subPropertyOf :materialProperty ;
+                            rdfs:domain :EnergyPlusMaterial ;
+                            rdfs:range xsd:string ;
+                            rdfs:comment "This property is used to describe an Energy Plus material. This property may be used to store a full or partial definition as a string that can be later parsed."^^xsd:string .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialRValue
+:energyPlusMaterialRValue rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                          rdfs:domain :EnergyPlusMaterial ;
+                          rdfs:range xsd:double ;
+                          rdfs:comment "The thermal resistance of a material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialRoughness
+:energyPlusMaterialRoughness rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                             rdfs:domain :EnergyPlusMaterial ;
+                             rdfs:range xsd:string ;
+                             rdfs:comment "This property defines the roughness of a material as defined by the Energy Plus 8.3 input-output documentation." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialSolarAbsorptance
+:energyPlusMaterialSolarAbsorptance rdf:type owl:DatatypeProperty ;
+                                    rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                    rdfs:domain :EnergyPlusMaterial ;
+                                    rdfs:range xsd:double ;
+                                    rdfs:comment "The amount of solar energy absorbed by a material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialSpecificHeat
+:energyPlusMaterialSpecificHeat rdf:type owl:DatatypeProperty ;
+                                rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                rdfs:domain :EnergyPlusMaterial ;
+                                rdfs:range xsd:double ;
+                                rdfs:comment "The specific heat of a material in kJ/(kg*K)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialThermalAbsorptance
+:energyPlusMaterialThermalAbsorptance rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                      rdfs:domain :EnergyPlusMaterial ;
+                                      rdfs:range xsd:double ;
+                                      rdfs:comment "Amount of heat absorbed by a material in W/m2." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialThermalCapacity
+:energyPlusMaterialThermalCapacity rdf:type owl:DatatypeProperty ;
+                                   rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                   rdfs:domain :EnergyPlusMaterial ;
+                                   rdfs:range xsd:double ;
+                                   rdfs:comment "The thermal capacity of a material in kJ/(m2*K)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialThermalMass
+:energyPlusMaterialThermalMass rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                               rdfs:domain :EnergyPlusMaterial ;
+                               rdfs:range xsd:double ;
+                               rdfs:comment "The thermal mass of a material in kg/m2." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialThermalResistance
+:energyPlusMaterialThermalResistance rdf:type owl:DatatypeProperty ;
+                                     rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                     rdfs:domain :EnergyPlusMaterial ;
+                                     rdfs:range xsd:double ;
+                                     rdfs:comment "The amount of resistance against thermal exchange by the material in (m2*K)/W." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusMaterialVisibleAbsorptance
+:energyPlusMaterialVisibleAbsorptance rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf :energyPlusMaterialProperty ;
+                                      rdfs:domain :EnergyPlusMaterial ;
+                                      rdfs:range xsd:double ;
+                                      rdfs:comment "The amount of visible light absorbed by a material for the purposes of energy modeling." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#energyPlusProgramProperty
+:energyPlusProgramProperty rdf:type owl:DatatypeProperty ;
+                           rdfs:subPropertyOf :programProperty .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#equipmentWattsArea
+:equipmentWattsArea rdf:type owl:DatatypeProperty ;
+                    rdfs:subPropertyOf :energyPlusProgramProperty ;
+                    rdf:type owl:FunctionalProperty ;
+                    rdfs:domain :EnergyPlusBuildingProgram ,
+                                :EnergyPlusSpaceProgram ,
+                                :Program ;
+                    rdfs:range xsd:double ;
+                    rdfs:comment "The number of watts per area for equipment (e.g., computers etc.) used by a specified program in units of W/m2." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#flowRateArea
+:flowRateArea rdf:type owl:DatatypeProperty ;
+              rdfs:subPropertyOf :rate ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain :EnergyPlusBuildingProgram ,
+                          :EnergyPlusSpaceProgram ,
+                          :Program ;
+              rdfs:range xsd:double ;
+              owl:propertyDisjointWith :infiltrationRate ;
+              rdfs:comment "The amount of fresh air that must be supplied for per meter of floor area for a given program in m3/second." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#heatingSetpoint
+:heatingSetpoint rdf:type owl:DatatypeProperty ;
+                 rdfs:subPropertyOf :setpoint ;
+                 rdfs:domain :System ;
+                 rdfs:range xsd:double ;
+                 rdfs:comment "The setting at which heating begins." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#heatingSetpointImperial
+:heatingSetpointImperial rdf:type owl:DatatypeProperty ;
+                         rdfs:subPropertyOf :heatingSetpoint ;
+                         rdfs:domain :System ;
+                         rdfs:range xsd:double ;
+                         owl:propertyDisjointWith :heatingSetpointMetric ;
+                         rdfs:comment "The heating setpoint in degrees fahrenheit (F)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#heatingSetpointMetric
+:heatingSetpointMetric rdf:type owl:DatatypeProperty ;
+                       rdfs:subPropertyOf :heatingSetpoint ;
+                       rdfs:domain :System ;
+                       rdfs:range xsd:double ;
+                       rdfs:comment "The heating setpoint in degress celsius (c)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#humiditySetPoint
+:humiditySetPoint rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :setpoint ;
+                  rdfs:domain :System ;
+                  rdfs:range xsd:double ;
+                  rdfs:comment "The relative humidity at which the air is humidified." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#infiltrationRate
+:infiltrationRate rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :rate ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain :EnergyPlusBuildingProgram ,
+                              :EnergyPlusSpaceProgram ,
+                              :Program ;
+                  rdfs:range xsd:double ;
+                  rdfs:comment "The rate at which air is exchanged through the facade in air exchanges air changes per hour." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#infiltrationRateImperial
+:infiltrationRateImperial rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :infiltrationRate ;
+                          rdfs:comment "Imperial representation of the infiltration rate in cubic feet of air per minute (CFM)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#infiltrationRateMetric
+:infiltrationRateMetric rdf:type owl:DatatypeProperty ;
+                        rdfs:subPropertyOf :infiltrationRate ;
+                        rdfs:domain :EnergyPlusBuildingProgram ,
+                                    :EnergyPlusSpaceProgram ,
+                                    :Program ;
+                        rdfs:range xsd:double ;
+                        rdfs:comment "Metric representation of the infiltration rate in litres of air per second (L/s)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#lightingWattsArea
+:lightingWattsArea rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :energyPlusProgramProperty ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :EnergyPlusBuildingProgram ,
+                               :EnergyPlusSpaceProgram ,
+                               :Program ;
+                   rdfs:range xsd:double ;
+                   rdfs:comment "The amount of energy consumed for lighting for a given program type in W/m2." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#materialEnumeration
+:materialEnumeration rdf:type owl:DatatypeProperty ;
+                     rdfs:subPropertyOf :materialProperty ;
+                     rdfs:domain :Layer ;
+                     rdfs:range xsd:integer ;
+                     rdfs:comment "Data property of type integer that describes the ordinal position of a layer from exterior to interior. Required: TRUE. Note: Note: Only used for material assembly." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#materialProperty
+:materialProperty rdf:type owl:DatatypeProperty ;
+                  rdfs:domain :Material ;
+                  rdfs:range rdfs:Literal .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#materialThickness
+:materialThickness rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :materialProperty ;
+                   rdfs:domain :Layer ;
+                   rdfs:range xsd:double ;
+                   rdfs:comment "Data property of type double that describes the thickness of material layer. Required: TRUE" .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#metric
+:metric rdf:type owl:DatatypeProperty ;
+        rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#name
+:name rdf:type owl:DatatypeProperty ,
+               owl:FunctionalProperty ;
+      rdfs:domain :Document ,
+                  :Material ,
+                  :MaterialAssembly ,
+                  :Schedule ,
+                  :System ,
+                  :Zone ;
+      rdfs:range xsd:string ;
+      rdfs:comment "Data property of type string that defines the name of a level. Required:TRUE." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#programProperty
+:programProperty rdf:type owl:DatatypeProperty ;
+                 rdfs:domain :Program ;
+                 rdfs:range rdfs:Literal .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#programType
+:programType rdf:type owl:DatatypeProperty ;
+             rdfs:subPropertyOf :programProperty ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:domain :EnergyPlusBuildingProgram ,
+                         :EnergyPlusSpaceProgram ,
+                         :Program ;
+             rdfs:range xsd:string ;
+             rdfs:comment "The type of program being described for either a building or space (i.e, School, Classroom, Kitchen, Hallway, Multifamily Residential etc.)" .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialProperty
+:radianceMaterialProperty rdf:type owl:DatatypeProperty ;
+                          rdfs:subPropertyOf :materialProperty ;
+                          rdfs:domain :Layer ;
+                          rdfs:range xsd:string ;
+                          rdfs:comment "This property is used to describe an Radiance material. This property may be used to store a full or partial definition as a string that can be later parsed." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialPropertyBlue
+:radianceMaterialPropertyBlue rdf:type owl:DatatypeProperty ;
+                              rdfs:subPropertyOf :radianceMaterialProperty ;
+                              rdfs:domain :RadianceMaterial ;
+                              rdfs:range xsd:integer ;
+                              rdfs:comment "The value for the blue channel minimum value 0 maximum value 255" .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialPropertyGreen
+:radianceMaterialPropertyGreen rdf:type owl:DatatypeProperty ;
+                               rdfs:subPropertyOf :radianceMaterialProperty ;
+                               rdfs:domain :RadianceMaterial ;
+                               rdfs:range xsd:integer ;
+                               rdfs:comment "value for the green channel." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialPropertyRed
+:radianceMaterialPropertyRed rdf:type owl:DatatypeProperty ;
+                             rdfs:subPropertyOf :radianceMaterialProperty ;
+                             rdfs:comment "Value for the red channel." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialPropertyReflectivity
+:radianceMaterialPropertyReflectivity rdf:type owl:DatatypeProperty ;
+                                      rdfs:subPropertyOf :radianceMaterialProperty ;
+                                      rdfs:domain :RadianceMaterial ;
+                                      rdfs:range xsd:double ;
+                                      rdfs:comment "Percentage of visible light reflected by a material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#radianceMaterialPropertyTransmissivity
+:radianceMaterialPropertyTransmissivity rdf:type owl:DatatypeProperty ;
+                                        rdfs:subPropertyOf :radianceMaterialProperty ;
+                                        rdfs:domain :RadianceMaterial ;
+                                        rdfs:range xsd:double ;
+                                        rdfs:comment "Percentage of visible light transmitted through a material, as defined in the Radiance documentation." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#rate
+:rate rdf:type owl:DatatypeProperty ;
+      rdfs:subPropertyOf :programProperty ;
+      rdfs:domain :Program ;
+      rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#setpoint
+:setpoint rdf:type owl:DatatypeProperty ;
+          rdfs:range xsd:double .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#volume
+:volume rdf:type owl:DatatypeProperty ;
+        rdfs:subPropertyOf :metric ;
+        rdf:type owl:FunctionalProperty ;
+        rdfs:domain :Zone ;
+        rdfs:range xsd:double ;
+        rdfs:comment "The numerical representation of the volume of air contained within a zone." .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#AirGap
+:AirGap rdf:type owl:Class ;
+        rdfs:subClassOf :EnergyPlusMaterial ;
+        rdfs:comment "The class that describes a MaterialAssembly that is of the Energy Plus type AirGap." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Document
+:Document rdf:type owl:Class ;
+          rdfs:comment "Base class for all types of documents that are associated wih an analysis process." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#EnergyPlusBuildingProgram
+:EnergyPlusBuildingProgram rdf:type owl:Class ;
+                           rdfs:subClassOf :Program ;
+                           owl:disjointWith :EnergyPlusSpaceProgram ;
+                           rdfs:comment "The class that describes the Energy Plus representation of a building program (i.e.,Residential)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#EnergyPlusMaterial
+:EnergyPlusMaterial rdf:type owl:Class ;
+                    rdfs:subClassOf :Material ;
+                    owl:disjointWith :RadianceMaterial ;
+                    rdfs:comment "The class that decribes the EnergyPlus representation of a MaterialAssembly. EnergyPlusMaterial represents the default, preferred material type according to Energy Plus documentation and it requires knowledge of many of the thermal properties of the material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#EnergyPlusSpaceProgram
+:EnergyPlusSpaceProgram rdf:type owl:Class ;
+                        rdfs:subClassOf :Program ;
+                        rdfs:comment "The class that describes the Energy Plus representation of a space program (i.e., Living Room)." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#EnergyPlusZone
+:EnergyPlusZone rdf:type owl:Class ;
+                rdfs:subClassOf :Zone ;
+                rdfs:comment "The class that describes the Energy Plus representation of a single HVAC zone." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#InfraredTransparent
+:InfraredTransparent rdf:type owl:Class ;
+                     rdfs:subClassOf :EnergyPlusMaterial ;
+                     rdfs:comment "The class that describes a MAterialAssembly that is of the Energy Plus type InfraredTransparent." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Layer
+:Layer rdf:type owl:Class ;
+       rdfs:subClassOf :MaterialAssembly ;
+       rdfs:comment "The class that describes numerically the physical properties of a material layer that is part of an assembly." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Material
+:Material rdf:type owl:Class ;
+          rdfs:comment "The class that describes numerically the physical properties of a material." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#MaterialAssembly
+:MaterialAssembly rdf:type owl:Class ;
+                  rdfs:comment "The class that describes the way materials are layered. It also contains the physical properties of the assembly." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#NoMass
+:NoMass rdf:type owl:Class ;
+        rdfs:subClassOf :EnergyPlusMaterial ;
+        rdfs:comment "The class that describes a MaterialAssembly that is of the Energy Plus type NoMass." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Opaque
+:Opaque rdf:type owl:Class ;
+        rdfs:subClassOf :RadianceMaterial ;
+        owl:disjointWith :Translucent ;
+        rdfs:comment "The class that describes a MaterialAssembly that is of the Radiance material type Opaque." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Program
+:Program rdf:type owl:Class .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#RadianceMaterial
+:RadianceMaterial rdf:type owl:Class ;
+                  rdfs:subClassOf :Material ;
+                  rdfs:comment "The class that decribes the Radiance representation of a MaterialAssembly." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#RoofVegetation
+:RoofVegetation rdf:type owl:Class ;
+                rdfs:subClassOf :EnergyPlusMaterial ;
+                rdfs:comment "The class that describes a MaterialAssembly that is of the Energy Plus type  RoofVegetation." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Schedule
+:Schedule rdf:type owl:Class ;
+          rdfs:comment "The class that describes the operation of a single social or mechanical system." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#System
+:System rdf:type owl:Class ;
+        rdfs:comment "The class that describes the type and operational parameters of a mechanical or nat. vent. system." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Translucent
+:Translucent rdf:type owl:Class ;
+             rdfs:subClassOf :RadianceMaterial ;
+             rdfs:comment "The class that describes a MaterialAssembly that is of the Radiance material type Translucent." .
+
+
+###  http://www.semanticweb.org/eleannapanagoulia/ontologies/2020/6/OBPD#Zone
+:Zone rdf:type owl:Class ;
+      rdfs:comment "The class that describes the operation of an HVAC zone (is conditioned etc.)." .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AirGap
+                :InfraredTransparent
+                :NoMass
+                :RoofVegetation
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Document
+                :Material
+                :MaterialAssembly
+                :Program
+                :Schedule
+                :System
+                :Zone
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :assignedTo
+                :has
+                :isAdjacent
+                :referencedFrom
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :coolingSetpoint
+                :dehumidificationSetpoint
+                :heatingSetpoint
+                :humiditySetPoint
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :description
+                :materialProperty
+                :metric
+                :name
+                :programProperty
+                :setpoint
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :energyPlusMaterialConductivity
+                :energyPlusMaterialDensity
+                :energyPlusMaterialRValue
+                :energyPlusMaterialRoughness
+                :energyPlusMaterialSolarAbsorptance
+                :energyPlusMaterialSpecificHeat
+                :energyPlusMaterialThermalAbsorptance
+                :energyPlusMaterialThermalCapacity
+                :energyPlusMaterialThermalMass
+                :energyPlusMaterialThermalResistance
+                :energyPlusMaterialVisibleAbsorptance
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :energyPlusMaterialProperty
+                :materialEnumeration
+                :materialThickness
+                :radianceMaterialProperty
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :radianceMaterialPropertyBlue
+                :radianceMaterialPropertyGreen
+                :radianceMaterialPropertyRed
+                :radianceMaterialPropertyReflectivity
+                :radianceMaterialPropertyTransmissivity
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
